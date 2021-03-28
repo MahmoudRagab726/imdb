@@ -1,0 +1,43 @@
+version: '2.1'
+
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=lunatech_imdb
+    ports:
+      - "5432:5432"
+    networks:
+      - default
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    logging:
+      driver: none
+
+  redis:
+    image: "redis:alpine"
+    command: redis-server --requirepass sOmE_sEcUrE_pAsS
+    ports:
+      - "6379:6379"
+    environment:
+      - REDIS_REPLICATION_MODE=master
+
+
+  imdb:
+    image: "mahmoudragab726/imdb:1.0.0"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    ports:
+      - 9090:8080
+    environment:
+      - PSQL_HOST=postgres
+      - REDIS_HOST=redis
+

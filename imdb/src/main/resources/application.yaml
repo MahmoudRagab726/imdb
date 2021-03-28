@@ -1,0 +1,37 @@
+server:
+  port: ${IMDB_PORT:8080}
+database:
+  name: ${IMDB_DB_NAME:lunatech_imdb}
+  schema-name: ${IMDB_DB_SCHEMA_NAME:lunatech_imdb}
+
+spring:
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  application:
+    name: Clients
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: ${PSQL_USER:postgres}
+    password: ${PSQL_PASSWORD:postgres}
+    url: jdbc:postgresql://${PSQL_HOST:localhost}:${PSQL_PORT:5432}/${database.name}
+    hikari:
+      schema: ${database.schema-name}
+  liquibase:
+    change-log: classpath:/liquibase/master.xml
+    default-schema: ${database.name}
+    drop-first: false
+    enabled: true
+    password: ${PSQL_PASSWORD:postgres}
+    url: ${spring.datasource.url}?createDatabaseIfNotExist=true
+    user: ${PSQL_USER:postgres}
+
+  redis:
+    host: ${REDIS_HOST:localhost}
+    port: 6379
+    cache:
+      type: redis
+      redis:
+        cache-null-values: true
+        time-to-live: 24h
+        use-key-prefix: true
+    password: sOmE_sEcUrE_pAsS

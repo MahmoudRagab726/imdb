@@ -1,0 +1,32 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="1" author="mahmoud">
+        <!-- START title_ratings TABLE-->
+        <createTable tableName="title_ratings">
+            <column name="tconst" type="varchar(10)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="average_rating" type="double">
+            </column>
+
+            <column name="num_votes" type="integer">
+            </column>
+
+        </createTable>
+
+        <addForeignKeyConstraint constraintName="fk_title_ratings"
+                                 baseTableName="title_ratings" baseColumnNames="tconst"
+                                 referencedTableName="title_basics" referencedColumnNames="tconst"
+                                 onDelete="CASCADE" onUpdate="CASCADE"/>
+
+        <!-- END title_ratings TABLE -->
+
+    </changeSet>
+
+
+
+</databaseChangeLog>

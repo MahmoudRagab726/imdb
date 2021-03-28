@@ -1,0 +1,41 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+        <changeSet id="1" author="mahmoud">
+            <!-- START name_basics TABLE-->
+            <createTable tableName="name_basics">
+                <column name="nconst" type="varchar(10)">
+                    <constraints primaryKey="true" nullable="false"/>
+                </column>
+
+                <column name="primary_name" type="varchar(100)">
+                </column>
+
+                <column name="birth_year" type="integer">
+                </column>
+
+                <column name="death_year" type="integer">
+                    <constraints nullable="true"/>
+                </column>
+
+                <column name="primary_profession" type="varchar(200)">
+                </column>
+
+                <column name="known_for_titles" type="varchar(100)">
+                </column>
+            </createTable>
+
+            <createIndex
+                    indexName="name_basics_primaryName_index"
+                    tableName="name_basics">
+                <column name="primary_name"/>
+            </createIndex>
+
+            <!-- END name_basics TABLE -->
+
+        </changeSet>
+
+
+</databaseChangeLog>

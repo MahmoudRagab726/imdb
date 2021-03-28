@@ -1,0 +1,31 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="1" author="mahmoud">
+        <!-- START title_crew TABLE-->
+        <createTable tableName="title_crew">
+            <column name="tconst" type="varchar(10)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="directors" type="varchar(500)">
+            </column>
+
+            <column name="writers" type="varchar(500)">
+            </column>
+
+        </createTable>
+
+        <addForeignKeyConstraint constraintName="fk_title_crew_tconst"
+                                 baseTableName="title_crew" baseColumnNames="tconst"
+                                 referencedTableName="title_basics" referencedColumnNames="tconst"
+                                 onDelete="CASCADE" onUpdate="CASCADE"/>
+
+        <!-- END title_crew TABLE -->
+
+    </changeSet>
+
+
+</databaseChangeLog>
